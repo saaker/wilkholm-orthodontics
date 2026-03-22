@@ -7,30 +7,51 @@ import { useTheme } from "./useTheme";
 
 import logo from "../../public/logo.jpg";
 
-export default function Header() {
+export default function Header({
+  variant = "b2b",
+}: {
+  variant?: "b2b" | "patient";
+}) {
   const [menuOpen, setMenuOpen] = useState(false);
   const { t, locale, setLocale } = useI18n();
   const { dark, toggle } = useTheme();
 
-  const navItems = [
+  const b2bNav = [
     { label: t("navAbout"), href: "#about" },
-    { label: t("navAligners"), href: "#invisalign" },
+    { label: t("navServices"), href: "#services" },
+    { label: t("navNews"), href: "#news" },
+    { label: t("navContact"), href: "#contact" },
+    { label: t("navPatients"), href: "/for-patienter" },
+  ];
+
+  const patientNav = [
+    { label: t("navAligners"), href: "#aligners" },
     { label: t("navProcess"), href: "#process" },
     { label: t("navLocations"), href: "#locations" },
-    { label: t("navNews"), href: "#news" },
     { label: t("navFaq"), href: "#faq" },
     { label: t("navContact"), href: "#contact" },
+    { label: t("navDentists"), href: "/" },
   ];
+
+  const navItems = variant === "patient" ? patientNav : b2bNav;
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md border-b border-border">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between relative">
         {/* Logo + title (inline on desktop, logo-only on mobile) */}
         <a
-          href="#"
+          href="/"
           onClick={(e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            const path = window.location.pathname;
+            const isHome =
+              path === "/" ||
+              path.replace(/\/+$/, "") === "" ||
+              path.endsWith("/wilkholm-orthodontics") ||
+              path === "/wilkholm-orthodontics/";
+            if (isHome) {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
           }}
           className="flex items-center gap-2.5 z-10"
         >
@@ -47,9 +68,24 @@ export default function Header() {
         </a>
 
         {/* Centered title — mobile/tablet only */}
-        <span className="lg:hidden absolute left-1/2 -translate-x-1/2 text-xl font-serif font-semibold text-foreground tracking-tight whitespace-nowrap">
+        <a
+          href="/"
+          onClick={(e) => {
+            const path = window.location.pathname;
+            const isHome =
+              path === "/" ||
+              path.replace(/\/+$/, "") === "" ||
+              path.endsWith("/wilkholm-orthodontics") ||
+              path === "/wilkholm-orthodontics/";
+            if (isHome) {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          }}
+          className="lg:hidden absolute left-1/2 -translate-x-1/2 text-xl font-serif font-semibold text-foreground tracking-tight whitespace-nowrap z-10"
+        >
           {t("brandName")}
-        </span>
+        </a>
 
         <div className="flex items-center gap-6 z-10">
           {/* Desktop nav */}

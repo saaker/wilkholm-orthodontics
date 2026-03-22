@@ -13,6 +13,10 @@
   --color-muted-dark: #6b7280;
   --color-border: #e5e7eb;
   --color-footer-bg: #1a1a2e;
+  --color-myth-bg: #991b1b;
+  --color-myth-text: #ffffff;
+  --color-truth-bg: #166534;
+  --color-truth-text: #ffffff;
   --font-sans: var(--font-geist-sans);
   --font-serif: var(--font-playfair);
 }
@@ -46,6 +50,10 @@ h1, h2, h3 {
   --color-muted-dark: #94a0b0;
   --color-border: #252832;
   --color-footer-bg: #080a0f;
+  --color-myth-bg: rgba(127, 29, 29, 0.3);
+  --color-myth-text: #f87171;
+  --color-truth-bg: rgba(6, 78, 59, 0.3);
+  --color-truth-text: #34d399;
 }
 
 .dark input,

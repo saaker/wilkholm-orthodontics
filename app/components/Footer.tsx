@@ -7,9 +7,9 @@ export default function Footer() {
 
   const navItems = [
     { label: t("navAbout"), href: "#about" },
-    { label: "Invisalign", href: "#invisalign" },
-    { label: "ClearCorrect", href: "#clearcorrect" },
-    { label: t("navLocations"), href: "#locations" },
+    { label: t("navServices"), href: "#services" },
+    { label: t("navPatients"), href: "/for-patienter" },
+    { label: t("navContact"), href: "#contact" },
   ];
 
   return (

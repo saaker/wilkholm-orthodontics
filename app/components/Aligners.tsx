@@ -4,7 +4,7 @@ import { useI18n } from "./I18nProvider";
 import { useAnimateIn } from "./useAnimateIn";
 import type { TranslationKey } from "@/lib/i18n";
 
-export default function Invisalign() {
+export default function Aligners() {
   const { t } = useI18n();
   const { ref, visible } = useAnimateIn();
 
@@ -35,8 +35,8 @@ export default function Invisalign() {
           />
         </svg>
       ),
-      titleKey: "benefitInvisible",
-      descKey: "benefitInvisibleDesc",
+      titleKey: "alignersBenefit1",
+      descKey: "alignersBenefit1Desc",
     },
     {
       icon: (
@@ -50,12 +50,12 @@ export default function Invisalign() {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={1.5}
-            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
           />
         </svg>
       ),
-      titleKey: "benefitFaster",
-      descKey: "benefitFasterDesc",
+      titleKey: "alignersBenefit2",
+      descKey: "alignersBenefit2Desc",
     },
     {
       icon: (
@@ -73,8 +73,8 @@ export default function Invisalign() {
           />
         </svg>
       ),
-      titleKey: "benefitComfort",
-      descKey: "benefitComfortDesc",
+      titleKey: "alignersBenefit3",
+      descKey: "alignersBenefit3Desc",
     },
     {
       icon: (
@@ -92,8 +92,8 @@ export default function Invisalign() {
           />
         </svg>
       ),
-      titleKey: "benefitDigital",
-      descKey: "benefitDigitalDesc",
+      titleKey: "alignersBenefit4",
+      descKey: "alignersBenefit4Desc",
     },
     {
       icon: (
@@ -111,8 +111,8 @@ export default function Invisalign() {
           />
         </svg>
       ),
-      titleKey: "benefitAllAges",
-      descKey: "benefitAllAgesDesc",
+      titleKey: "alignersBenefit5",
+      descKey: "alignersBenefit5Desc",
     },
     {
       icon: (
@@ -130,27 +130,39 @@ export default function Invisalign() {
           />
         </svg>
       ),
-      titleKey: "benefitProven",
-      descKey: "benefitProvenDesc",
+      titleKey: "alignersBenefit6",
+      descKey: "alignersBenefit6Desc",
     },
   ];
 
   return (
-    <section id="invisalign" className="py-24 bg-muted">
+    <section id="aligners" className="py-24 bg-muted">
       <div ref={ref} className="max-w-6xl mx-auto px-6">
         {/* Section header */}
         <div
-          className={`text-center max-w-2xl mx-auto mb-16 animate-fade-up ${visible ? "visible" : ""}`}
+          className={`text-center max-w-2xl mx-auto mb-10 animate-fade-up ${visible ? "visible" : ""}`}
         >
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">
-            {t("invisalignLabel")}
+            {t("alignersLabel")}
           </p>
           <h2 className="text-3xl sm:text-4xl font-serif font-semibold text-foreground leading-tight mb-4">
-            {t("invisalignTitle1")}{" "}
-            <span className="text-primary">{t("invisalignTitle2")}</span>
+            {t("alignersTitle1")}{" "}
+            <span className="text-primary">{t("alignersTitle2")}</span>
           </h2>
           <p className="text-muted-dark leading-relaxed">
-            {t("invisalignIntro")}
+            {t("alignersIntro")}
+          </p>
+        </div>
+
+        {/* Educational intro card */}
+        <div
+          className={`bg-surface rounded-2xl p-8 sm:p-10 border border-border/50 shadow-sm mb-12 animate-fade-up delay-1 ${visible ? "visible" : ""}`}
+        >
+          <h3 className="text-lg sm:text-xl font-semibold text-foreground font-sans mb-3">
+            {t("alignersWhat")}
+          </h3>
+          <p className="text-muted-dark leading-relaxed">
+            {t("alignersWhatDesc")}
           </p>
         </div>
 

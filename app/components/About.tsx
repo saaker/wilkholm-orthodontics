@@ -52,7 +52,7 @@ export default function About() {
               {[
                 { value: "20+", label: t("statYears") },
                 { value: "2000+", label: t("statPatients") },
-                { value: "Platinum", label: t("statProvider") },
+                { value: "Diamond", label: t("statProvider") },
               ].map((stat) => (
                 <div key={stat.label}>
                   <div className="text-2xl font-serif font-semibold text-primary">

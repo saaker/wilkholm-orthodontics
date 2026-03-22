@@ -2,8 +2,29 @@
 
 import { useI18n } from "./I18nProvider";
 import { useAnimateIn } from "./useAnimateIn";
+import type { TranslationKey } from "@/lib/i18n";
 
-export default function Hero() {
+interface HeroProps {
+  badgeKey?: TranslationKey;
+  title1Key?: TranslationKey;
+  title2Key?: TranslationKey;
+  subtitleKey?: TranslationKey;
+  ctaKey?: TranslationKey;
+  ctaHref?: string;
+  secondaryKey?: TranslationKey;
+  secondaryHref?: string;
+}
+
+export default function Hero({
+  badgeKey = "heroBadge",
+  title1Key = "heroTitle1",
+  title2Key = "heroTitle2",
+  subtitleKey = "heroSubtitle",
+  ctaKey = "heroCta",
+  ctaHref = "#services",
+  secondaryKey = "heroSecondary",
+  secondaryHref = "/for-patienter",
+}: HeroProps) {
   const { t } = useI18n();
   const { ref, visible } = useAnimateIn(0.05);
 
@@ -22,28 +43,17 @@ export default function Hero() {
         ref={ref}
         className="relative max-w-6xl mx-auto px-6 py-32 text-center"
       >
-        {/* Badge */}
-        <div
-          className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8 animate-fade-up ${visible ? "visible" : ""}`}
-        >
-          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-          </svg>
-          {t("heroBadge")}
-        </div>
-
         {/* Main heading */}
         <h1
           className={`text-5xl sm:text-6xl lg:text-7xl font-serif font-semibold text-foreground leading-tight tracking-tight mb-6 animate-fade-up delay-1 ${visible ? "visible" : ""}`}
         >
-          {t("heroTitle1")}{" "}
-          <span className="text-primary">{t("heroTitle2")}</span>
+          {t(title1Key)} <span className="text-primary">{t(title2Key)}</span>
         </h1>
 
         <p
           className={`max-w-2xl mx-auto text-lg sm:text-xl text-muted-dark leading-relaxed mb-10 animate-fade-up delay-2 ${visible ? "visible" : ""}`}
         >
-          {t("heroSubtitle")}
+          {t(subtitleKey)}
         </p>
 
         {/* CTA Buttons */}
@@ -51,10 +61,10 @@ export default function Hero() {
           className={`flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up delay-3 ${visible ? "visible" : ""}`}
         >
           <a
-            href="#locations"
+            href={ctaHref}
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-white font-medium hover:bg-primary-dark transition-colors shadow-lg shadow-primary/20"
           >
-            {t("heroCta")}
+            {t(ctaKey)}
             <svg
               className="w-4 h-4"
               fill="none"
@@ -70,10 +80,10 @@ export default function Hero() {
             </svg>
           </a>
           <a
-            href="#about"
+            href={secondaryHref}
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-border text-foreground font-medium hover:bg-muted transition-colors"
           >
-            {t("heroSecondary")}
+            {t(secondaryKey)}
           </a>
         </div>
       </div>
