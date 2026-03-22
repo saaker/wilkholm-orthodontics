@@ -26,16 +26,21 @@ const emptyLocation: Omit<Location, "id"> = {
   description: "",
 };
 
-export default function AdminPanel() {
+interface AdminPanelProps {
+  initialLocations?: Location[];
+}
+
+export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
   const [secret, setSecret] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
-  const [locations, setLocations] = useState<Location[]>([]);
+  const [locations, setLocations] = useState<Location[]>(initialLocations);
   const [editing, setEditing] = useState<Location | null>(null);
   const [form, setForm] = useState<Omit<Location, "id"> & { id?: string }>(
     emptyLocation,
   );
   const [loading, setLoading] = useState(false);
   const [geocoding, setGeocoding] = useState(false);
+  const [readOnly, setReadOnly] = useState(false);
   const [message, setMessage] = useState<{
     type: "success" | "error";
     text: string;
@@ -47,10 +52,18 @@ export default function AdminPanel() {
   };
 
   async function fetchLocations() {
-    const res = await fetch("/api/locations");
-    if (res.ok) {
-      setLocations(await res.json());
+    try {
+      const res = await fetch("/api/locations");
+      if (res.ok) {
+        setLocations(await res.json());
+        return;
+      }
+    } catch {
+      // API not available (static export)
     }
+    // Fall back to initial data in read-only mode
+    setLocations(initialLocations);
+    setReadOnly(true);
   }
 
   useEffect(() => {
@@ -95,10 +108,17 @@ export default function AdminPanel() {
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     // Test the secret by trying to get locations
-    const res = await fetch("/api/locations");
-    if (res.ok) {
-      setAuthenticated(true);
+    try {
+      const res = await fetch("/api/locations");
+      if (res.ok) {
+        setAuthenticated(true);
+        return;
+      }
+    } catch {
+      // API not available — allow read-only access
     }
+    setAuthenticated(true);
+    setReadOnly(true);
   }
 
   async function handleSave(e: React.FormEvent) {
@@ -234,6 +254,12 @@ export default function AdminPanel() {
       </div>
 
       <div className="max-w-5xl mx-auto px-6 py-8">
+        {/* Read-only notice */}
+        {readOnly && (
+          <div className="mb-6 px-4 py-3 rounded-xl text-sm font-medium bg-amber-50 text-amber-700 border border-amber-200">
+            Skrivskyddat läge — redigering kräver lokal utvecklingsmiljö (<code>npm run dev</code>).
+          </div>
+        )}
         {/* Message */}
         {message && (
           <div
@@ -247,8 +273,9 @@ export default function AdminPanel() {
           </div>
         )}
 
-        <div className="grid lg:grid-cols-2 gap-8">
-          {/* Form */}
+        <div className={readOnly ? "" : "grid lg:grid-cols-2 gap-8"}>
+          {/* Form — hidden in read-only mode */}
+          {!readOnly && (
           <div className="bg-white rounded-2xl shadow-sm border border-border p-6">
             <h2 className="text-lg font-semibold mb-4 font-sans">
               {editing ? "Redigera klinik" : "Lägg till ny klinik"}
@@ -379,6 +406,7 @@ export default function AdminPanel() {
               </div>
             </form>
           </div>
+          )}
 
           {/* Existing locations */}
           <div className="space-y-4">
@@ -411,6 +439,7 @@ export default function AdminPanel() {
                       {location.phone} &middot; {location.hours}
                     </p>
                   </div>
+                  {!readOnly && (
                   <div className="flex gap-2 shrink-0">
                     <button
                       onClick={() => startEdit(location)}
@@ -426,6 +455,7 @@ export default function AdminPanel() {
                       Ta bort
                     </button>
                   </div>
+                  )}
                 </div>
               </div>
             ))}

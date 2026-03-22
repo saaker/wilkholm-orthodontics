@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { useI18n } from "./I18nProvider";
 import type { Locale } from "@/lib/i18n";
+import logo from "../../public/logo.jpg";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -25,7 +26,7 @@ export default function Header() {
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5">
           <Image
-            src="/logo.jpg"
+            src={logo}
             alt="Wikholm Ortodonti"
             width={36}
             height={36}
