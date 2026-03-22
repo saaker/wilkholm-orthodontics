@@ -33,7 +33,7 @@ export default async function PatientPage() {
         <Locations locations={locations} />
         <FAQ />
       </main>
-      <Footer />
+      <Footer variant="patient" />
     </>
   );
 }

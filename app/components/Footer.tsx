@@ -3,15 +3,25 @@
 import { useI18n } from "./I18nProvider";
 import basePath from "@/lib/basePath";
 
-export default function Footer() {
+export default function Footer({ variant = "b2b" }: { variant?: "b2b" | "patient" }) {
   const { t } = useI18n();
 
-  const navItems = [
+  const b2bLinks = [
     { label: t("navAbout"), href: "#about" },
     { label: t("navServices"), href: "#services" },
     { label: t("navPatients"), href: `${basePath}/for-patienter` },
     { label: t("navContact"), href: "#contact" },
   ];
+
+  const patientLinks = [
+    { label: t("navAligners"), href: "#aligners" },
+    { label: t("navProcess"), href: "#process" },
+    { label: t("navLocations"), href: "#locations" },
+    { label: t("navFaq"), href: "#faq" },
+    { label: t("navDentists"), href: `${basePath}/` },
+  ];
+
+  const navItems = variant === "patient" ? patientLinks : b2bLinks;
 
   return (
     <footer id="contact" className="bg-footer-bg text-white">
