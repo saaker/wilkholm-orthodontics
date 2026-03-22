@@ -3,7 +3,11 @@
 import { useI18n } from "./I18nProvider";
 import basePath from "@/lib/basePath";
 
-export default function Footer({ variant = "b2b" }: { variant?: "b2b" | "patient" }) {
+export default function Footer({
+  variant = "b2b",
+}: {
+  variant?: "b2b" | "patient";
+}) {
   const { t } = useI18n();
 
   const b2bLinks = [
