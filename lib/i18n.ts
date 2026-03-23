@@ -172,6 +172,37 @@ export const translations = {
     faq6A:
       "Kostnaden varierar beroende på behandlingens omfattning. Under en konsultation får du en tydlig kostnadsuppskattning. Många kliniker erbjuder delbetalning. I vissa regioner i Sverige kan behandlingen helt eller delvis omfattas av lokala hälso- och sjukvårdsbestämmelser — kontrollera med Försäkringskassan vad som gäller i ditt fall.",
 
+    // Before & After
+    beforeAfterLabel: "RESULTAT",
+    beforeAfterTitle1: "Före",
+    beforeAfterTitle2: "& efter",
+    beforeAfterIntro:
+      "Se verkliga resultat från genomskinlig tandreglering. Varje leende är unikt — och varje behandlingsplan skräddarsydd.",
+    beforeAfterBefore: "Före",
+    beforeAfterAfter: "Efter",
+    beforeAfterDisclaimer:
+      "Bilderna är från verkliga behandlingar. Resultaten varierar beroende på individuella förutsättningar.",
+    beforeAfterComingSoon: "Bilder kommer snart",
+
+    // Dental Monitoring
+    dmLabel: "DENTAL MONITORING",
+    dmTitle1: "AI-assisterad",
+    dmTitle2: "övervakning",
+    dmIntro:
+      "Med Dental Monitoring kan din behandling följas upp på distans via din smartphone — färre klinikbesök, snabbare justeringar och bättre resultat.",
+    dmFeature1Title: "Skanna hemifrån",
+    dmFeature1Desc:
+      "Ta regelbundna skanningar av dina tänder med kameran på din telefon. AI:n analyserar behandlingens framsteg automatiskt.",
+    dmFeature2Title: "Tidig avvikelse",
+    dmFeature2Desc:
+      "Systemet upptäcker små avvikelser innan de blir problem — och din ortodontist kan justera planen direkt.",
+    dmFeature3Title: "Färre besök",
+    dmFeature3Desc:
+      "Minska antalet fysiska besök på kliniken utan att kompromissa med kvaliteten på din behandling.",
+    dmFeature4Title: "Full insyn",
+    dmFeature4Desc:
+      "Följ din egen behandlingsresa i appen och se hur dina tänder sakta men säkert når målet.",
+
     // Myths & Truths
     mythsLabel: "MYTER & SANNINGAR",
     mythsTitle1: "Vad stämmer egentligen",
@@ -239,6 +270,11 @@ export const translations = {
     serviceReferralDesc:
       "För fall som kräver specialistbehandling på plats kan remiss skickas via journalsystemen Muntra och Frenda till en av mina mottagningskliniker.",
     serviceReferralTag: "REMISS",
+    serviceGrowthTitle: "Aligner Growth Program",
+    serviceGrowthDesc:
+      "För tandläkare som vill växa sin verksamhet inom aligners. Innehåller flödesoptimering och handfasta förslag för att förbättra processen från konsultation till leverans av skenor. Kan kombineras med TPS-abonnemang till ett kraftigt rabatterat pris.",
+    serviceGrowthTag: "NYHET",
+    serviceGrowthPrice: "15 000 kr",
 
     // Patient page hero
     patientHeroBadge: "Genomskinlig tandreglering",
@@ -431,6 +467,37 @@ export const translations = {
     faq6A:
       "Cost varies depending on the scope of treatment. During a consultation, you'll receive a clear cost estimate. Many clinics offer payment plans. In some regions of Sweden, treatment may be partially covered by local healthcare regulations — check with Försäkringskassan for your situation.",
 
+    // Before & After
+    beforeAfterLabel: "RESULTS",
+    beforeAfterTitle1: "Before",
+    beforeAfterTitle2: "& after",
+    beforeAfterIntro:
+      "See real results from clear aligner treatment. Every smile is unique — and every treatment plan is custom-made.",
+    beforeAfterBefore: "Before",
+    beforeAfterAfter: "After",
+    beforeAfterDisclaimer:
+      "Images are from real treatments. Results vary depending on individual circumstances.",
+    beforeAfterComingSoon: "Photos coming soon",
+
+    // Dental Monitoring
+    dmLabel: "DENTAL MONITORING",
+    dmTitle1: "AI-assisted",
+    dmTitle2: "monitoring",
+    dmIntro:
+      "With Dental Monitoring, your treatment can be followed up remotely via your smartphone — fewer clinic visits, faster adjustments, and better results.",
+    dmFeature1Title: "Scan from home",
+    dmFeature1Desc:
+      "Take regular scans of your teeth with your phone camera. The AI analyzes treatment progress automatically.",
+    dmFeature2Title: "Early detection",
+    dmFeature2Desc:
+      "The system detects small deviations before they become problems — and your orthodontist can adjust the plan immediately.",
+    dmFeature3Title: "Fewer visits",
+    dmFeature3Desc:
+      "Reduce the number of physical clinic visits without compromising the quality of your treatment.",
+    dmFeature4Title: "Full transparency",
+    dmFeature4Desc:
+      "Follow your own treatment journey in the app and watch your teeth slowly but surely reach the goal.",
+
     // Myths & Truths
     mythsLabel: "MYTHS & TRUTHS",
     mythsTitle1: "What's actually true",
@@ -498,6 +565,11 @@ export const translations = {
     serviceReferralDesc:
       "For cases requiring in-person specialist treatment, referrals can be sent via the Muntra and Frenda journal systems to one of my reception clinics.",
     serviceReferralTag: "REFERRAL",
+    serviceGrowthTitle: "Aligner Growth Program",
+    serviceGrowthDesc:
+      "For dentists looking to grow their aligner practice. Includes workflow optimization and hands-on recommendations for improving the process from consultation to tray delivery. Can be combined with a TPS subscription at a significantly reduced price.",
+    serviceGrowthTag: "NEW",
+    serviceGrowthPrice: "15 000 SEK",
 
     // Patient page hero
     patientHeroBadge: "Clear aligner treatment",
