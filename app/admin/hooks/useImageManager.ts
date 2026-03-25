@@ -17,21 +17,45 @@ export function useImageManager(
   useEffect(() => {
     if (tab !== "images") return;
     fetch(`${basePath}/api/images`)
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) throw new Error("api");
+        return r.json();
+      })
       .then((d) => {
         setImageFolders(d.folders ?? []);
         if (!activeFolder && d.folders?.length) setActiveFolder(d.folders[0]);
       })
-      .catch(() => {});
+      .catch(() => {
+        // Fallback: load static manifest for GitHub Pages
+        fetch(`${basePath}/images/manifest.json`)
+          .then((r) => r.json())
+          .then((manifest: Record<string, string[]>) => {
+            const folders = Object.keys(manifest);
+            setImageFolders(folders);
+            if (!activeFolder && folders.length) setActiveFolder(folders[0]);
+          })
+          .catch(() => {});
+      });
   }, [tab, activeFolder]);
 
   // Load images when folder changes
   useEffect(() => {
     if (tab !== "images" || !activeFolder) return;
     fetch(`${basePath}/api/images?folder=${encodeURIComponent(activeFolder)}`)
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) throw new Error("api");
+        return r.json();
+      })
       .then((d) => setFolderImages(d.images ?? []))
-      .catch(() => setFolderImages([]));
+      .catch(() => {
+        // Fallback: load from static manifest
+        fetch(`${basePath}/images/manifest.json`)
+          .then((r) => r.json())
+          .then((manifest: Record<string, string[]>) => {
+            setFolderImages(manifest[activeFolder] ?? []);
+          })
+          .catch(() => setFolderImages([]));
+      });
   }, [tab, activeFolder]);
 
   async function handleImageUpload(files: FileList | File[]) {
