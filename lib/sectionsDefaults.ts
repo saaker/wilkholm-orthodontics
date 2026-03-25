@@ -56,6 +56,12 @@ export interface NewsItem {
   en: { tag: string; date: string; title: string; desc: string };
 }
 
+export interface BeforeAfterItem {
+  id: string;
+  before: string;
+  after: string;
+}
+
 export interface SectionsData {
   services: ServiceItem[];
   aligners: AlignerItem[];
@@ -65,6 +71,7 @@ export interface SectionsData {
   faq: FAQItem[];
   myths: MythItem[];
   news: NewsItem[];
+  beforeAfter: BeforeAfterItem[];
 }
 
 export const NEWS_COLORS = [
@@ -647,6 +654,68 @@ export const DEFAULT_SECTIONS: SectionsData = {
         title: "Why straight teeth are about more than aesthetics",
         desc: "Misaligned teeth can affect chewing, oral hygiene, and even headaches. Read about the health benefits of orthodontics.",
       },
+    },
+  ],
+  beforeAfter: [
+    {
+      id: "1",
+      before: "/images/before-after/Före1.jpg",
+      after: "/images/before-after/Efter1.jpg",
+    },
+    {
+      id: "2",
+      before: "/images/before-after/Före2.jpg",
+      after: "/images/before-after/Efter2.jpg",
+    },
+    {
+      id: "2a",
+      before: "/images/before-after/Före2a.jpg",
+      after: "/images/before-after/Efter2a.jpg",
+    },
+    {
+      id: "4",
+      before: "/images/before-after/Före4.jpg",
+      after: "/images/before-after/Efter4.jpg",
+    },
+    {
+      id: "4a",
+      before: "/images/before-after/Före4a.jpg",
+      after: "/images/before-after/Efter4a.jpg",
+    },
+    {
+      id: "5",
+      before: "/images/before-after/Före5.jpg",
+      after: "/images/before-after/Efter5.jpg",
+    },
+    {
+      id: "6",
+      before: "/images/before-after/Före6.jpg",
+      after: "/images/before-after/Efter6.jpg",
+    },
+    {
+      id: "7",
+      before: "/images/before-after/Före7.jpg",
+      after: "/images/before-after/Efter7.jpg",
+    },
+    {
+      id: "8",
+      before: "/images/before-after/Före8.jpg",
+      after: "/images/before-after/Efter8.jpg",
+    },
+    {
+      id: "10",
+      before: "/images/before-after/Före10.jpg",
+      after: "/images/before-after/Efter10.jpg",
+    },
+    {
+      id: "11",
+      before: "/images/before-after/Före11.jpg",
+      after: "/images/before-after/Efter11.jpg",
+    },
+    {
+      id: "12",
+      before: "/images/before-after/Före12.jpg",
+      after: "/images/before-after/Efter12.jpg",
     },
   ],
 };

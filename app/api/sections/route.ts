@@ -24,6 +24,7 @@ export async function PUT(request: NextRequest) {
     "faq",
     "myths",
     "news",
+    "beforeAfter",
   ];
   for (const key of requiredKeys) {
     if (!Array.isArray(body[key])) {

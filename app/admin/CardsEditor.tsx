@@ -5,12 +5,18 @@ import type {
   SectionsData,
   ServiceItem,
   AlignerItem,
+  BeforeAfterItem,
   DMItem,
   NewsItem,
 } from "@/lib/sectionsDefaults";
 
 import { inputCls } from "./adminTypes";
-import { Field, IconPicker, MoveButtons } from "./adminComponents";
+import {
+  Field,
+  IconPicker,
+  ImagePickerField,
+  MoveButtons,
+} from "./adminComponents";
 import { renderPreview } from "./CardPreviews";
 
 /* ═══════════════════════════════════════════════════
@@ -23,7 +29,6 @@ interface CardsEditorProps {
   editingCard: number | null;
   setEditingCard: (i: number | null) => void;
   contentLocale: "sv" | "en";
-  setContentLocale: (l: "sv" | "en") => void;
   saving: boolean;
   readOnly: boolean;
   onSave: () => void;
@@ -101,6 +106,12 @@ function makeCard(sectionKey: keyof SectionsData): Record<string, unknown> {
         color: "bg-primary/10 text-primary",
         sv: { tag: "", date: "", title: "", desc: "" },
         en: { tag: "", date: "", title: "", desc: "" },
+      };
+    case "beforeAfter":
+      return {
+        id: `ba-${ts}`,
+        before: "",
+        after: "",
       };
   }
 }
@@ -310,6 +321,25 @@ function CardEditForm({
         </>
       );
     }
+    case "beforeAfter": {
+      const ba = item as unknown as BeforeAfterItem;
+      return (
+        <>
+          <ImagePickerField
+            label="Före-bild"
+            value={ba.before || ""}
+            onChange={(v) => update("before", v)}
+            defaultFolder="before-after"
+          />
+          <ImagePickerField
+            label="Efter-bild"
+            value={ba.after || ""}
+            onChange={(v) => update("after", v)}
+            defaultFolder="before-after"
+          />
+        </>
+      );
+    }
     default:
       return null;
   }
@@ -325,7 +355,6 @@ export function CardsEditor({
   editingCard,
   setEditingCard,
   contentLocale,
-  setContentLocale,
   saving,
   readOnly,
   onSave,
@@ -375,28 +404,15 @@ export function CardsEditor({
 
   return (
     <div className="space-y-4">
-      {/* Locale toggle + save */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-1 bg-muted rounded-lg p-0.5">
-          {(["sv", "en"] as const).map((l) => (
-            <button
-              key={l}
-              onClick={() => setContentLocale(l)}
-              className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${contentLocale === l ? "bg-surface text-foreground shadow-sm" : "text-muted-dark"}`}
-            >
-              {l === "sv" ? "Svenska" : "English"}
-            </button>
-          ))}
-        </div>
-        <div className="flex gap-2">
-          <button
-            onClick={onSave}
-            disabled={saving || readOnly}
-            className="px-5 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-dark transition-colors disabled:opacity-50"
-          >
-            {saving ? "Sparar..." : "Spara kort"}
-          </button>
-        </div>
+      {/* Save button */}
+      <div className="flex justify-start">
+        <button
+          onClick={onSave}
+          disabled={saving || readOnly}
+          className="px-5 py-2 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-dark transition-colors disabled:opacity-50"
+        >
+          {saving ? "Sparar..." : "Spara kort"}
+        </button>
       </div>
 
       {/* Card list */}
@@ -412,7 +428,7 @@ export function CardsEditor({
               <div className="flex-1 min-w-0">
                 {renderPreview(sectionKey, item, i, locale)}
               </div>
-              <div className="flex flex-col items-center gap-1 shrink-0">
+              <div className="flex items-start gap-1 shrink-0">
                 <MoveButtons
                   index={i}
                   total={items.length}
@@ -427,26 +443,28 @@ export function CardsEditor({
                     }
                   }}
                 />
-                <button
-                  onClick={() => setEditingCard(isEditing ? null : i)}
-                  className={`p-1.5 rounded-lg text-xs font-medium transition-colors ${isEditing ? "bg-green-50 text-green-600 hover:bg-green-100" : "bg-primary-light text-primary hover:bg-primary/20"}`}
-                  title={isEditing ? "Spara & stäng" : "Redigera"}
-                >
-                  {isEditing ? "✓" : "✎"}
-                </button>
-                <button
-                  onClick={() => {
-                    if (!confirm("Ta bort detta kort?")) return;
-                    updateSectionArray((arr) => deleteItem(arr, i));
-                    if (editingCard === i) setEditingCard(null);
-                    else if (editingCard !== null && editingCard > i)
-                      setEditingCard(editingCard - 1);
-                  }}
-                  className="p-1.5 rounded-lg text-xs font-medium bg-red-50 text-red-600 hover:bg-red-100 transition-colors"
-                  title="Ta bort"
-                >
-                  🗑
-                </button>
+                <div className="flex flex-col gap-1">
+                  <button
+                    onClick={() => setEditingCard(isEditing ? null : i)}
+                    className={`w-[40px] h-[40px] flex items-center justify-center rounded-lg text-lg font-medium transition-colors ${isEditing ? "bg-green-50 text-green-600 hover:bg-green-100" : "bg-primary-light text-primary hover:bg-primary/20"}`}
+                    title={isEditing ? "Spara & stäng" : "Redigera"}
+                  >
+                    {isEditing ? "✓" : "✎"}
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (!confirm("Ta bort detta kort?")) return;
+                      updateSectionArray((arr) => deleteItem(arr, i));
+                      if (editingCard === i) setEditingCard(null);
+                      else if (editingCard !== null && editingCard > i)
+                        setEditingCard(editingCard - 1);
+                    }}
+                    className="w-[40px] h-[40px] flex items-center justify-center rounded-lg text-lg font-medium bg-red-50 text-red-600 hover:bg-red-100 transition-colors"
+                    title="Ta bort"
+                  >
+                    🗑
+                  </button>
+                </div>
               </div>
             </div>
 

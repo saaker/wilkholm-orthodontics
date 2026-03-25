@@ -27,7 +27,9 @@ export const translations = {
     heroSubtitle:
       "Specialisttandläkare André Wikholm erbjuder kostnadsfri fallbedömning, behandlingsplanering och klinisk rådgivning för tandläkare som vill erbjuda sina patienter alignerbehandling.",
     heroCta: "Se tjänster",
+    heroCtaLink: "#services",
     heroSecondary: "För patienter →",
+    heroSecondaryLink: "/for-patienter",
 
     // About
     aboutLabel: "André Wikholm",
@@ -294,11 +296,13 @@ export const translations = {
     patientHeroSubtitle:
       "Specialisttandläkare inom tandreglering sedan 2014. Med genomskinliga aligners hjälper jag dig uppnå det leende du alltid drömt om — diskret, bekvämt och med enastående resultat.",
     patientHeroCta: "Hitta din klinik",
+    patientHeroCtaLink: "#locations",
     patientHeroSecondary: "Läs mer om aligners",
+    patientHeroSecondaryLink: "#aligners",
 
     // LinkedIn
-    linkedinPersonal: "LinkedIn — André Wikholm",
-    linkedinCompany: "LinkedIn — Wikholm Ortodonti AB",
+    linkedinPersonal: "André Wikholm",
+    linkedinCompany: "Wikholm Ortodonti AB",
 
     // Footer
     footerDesc:
@@ -334,7 +338,9 @@ export const translations = {
     heroSubtitle:
       "Specialist orthodontist André Wikholm offers free case assessments, treatment planning, and clinical advisory services for dentists who want to offer aligner treatment to their patients.",
     heroCta: "View services",
+    heroCtaLink: "#services",
     heroSecondary: "For patients →",
+    heroSecondaryLink: "/for-patienter",
 
     // About
     aboutLabel: "André Wikholm",
@@ -600,11 +606,13 @@ export const translations = {
     patientHeroSubtitle:
       "Specialist orthodontist since 2014. Using clear aligners, I help you achieve the smile you've always dreamed of — discreet, comfortable, and with outstanding results.",
     patientHeroCta: "Find your clinic",
+    patientHeroCtaLink: "#locations",
     patientHeroSecondary: "Learn about aligners",
+    patientHeroSecondaryLink: "#aligners",
 
     // LinkedIn
-    linkedinPersonal: "LinkedIn — André Wikholm",
-    linkedinCompany: "LinkedIn — Wikholm Orthodontics AB",
+    linkedinPersonal: "André Wikholm",
+    linkedinCompany: "Wikholm Orthodontics AB",
 
     // Footer
     footerDesc:

@@ -118,10 +118,12 @@ export function ImagePickerField({
   label,
   value,
   onChange,
+  defaultFolder,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
+  defaultFolder?: string;
 }) {
   const [open, setOpen] = useState(false);
   const [folders, setFolders] = useState<string[]>([]);
@@ -132,7 +134,16 @@ export function ImagePickerField({
     setOpen(true);
     fetch(`${basePath}/api/images`)
       .then((r) => r.json())
-      .then((d) => setFolders(d.folders ?? []))
+      .then((d) => {
+        setFolders(d.folders ?? []);
+        if (
+          defaultFolder &&
+          !selFolder &&
+          (d.folders ?? []).includes(defaultFolder)
+        ) {
+          loadFolder(defaultFolder);
+        }
+      })
       .catch(() => {});
   }
 
@@ -267,16 +278,16 @@ export function MoveButtons({
   onMove: (from: number, to: number) => void;
 }) {
   return (
-    <div className="flex gap-1">
+    <div className="flex flex-col gap-1">
       <button
         type="button"
         disabled={index === 0}
         onClick={() => onMove(index, index - 1)}
-        className="p-1 rounded hover:bg-muted disabled:opacity-30"
+        className="w-[40px] h-[40px] flex items-center justify-center rounded-lg hover:bg-muted disabled:opacity-30"
         title="Flytta upp"
       >
         <svg
-          className="w-4 h-4"
+          className="w-5 h-5"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -293,11 +304,11 @@ export function MoveButtons({
         type="button"
         disabled={index === total - 1}
         onClick={() => onMove(index, index + 1)}
-        className="p-1 rounded hover:bg-muted disabled:opacity-30"
+        className="w-[40px] h-[40px] flex items-center justify-center rounded-lg hover:bg-muted disabled:opacity-30"
         title="Flytta ner"
       >
         <svg
-          className="w-4 h-4"
+          className="w-5 h-5"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"

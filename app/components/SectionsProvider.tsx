@@ -25,7 +25,7 @@ export function SectionsProvider({ children }: { children: ReactNode }) {
     fetch(`${basePath}/api/sections`)
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
-        if (data) setSections(data);
+        if (data) setSections({ ...DEFAULT_SECTIONS, ...data });
       })
       .catch(() => {});
   }, []);

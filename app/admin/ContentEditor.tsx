@@ -1,6 +1,11 @@
 "use client";
 
-import { dentistContentSections, patientContentSections } from "./adminTypes";
+import {
+  dentistContentSections,
+  patientContentSections,
+  dentistLinkOptions,
+  patientLinkOptions,
+} from "./adminTypes";
 import { Field, ImagePickerField } from "./adminComponents";
 import { SectionPreview } from "./SectionPreview";
 
@@ -48,12 +53,21 @@ export function ContentEditor({
       <fieldset disabled={readOnly} className={readOnly ? "opacity-60" : ""}>
         <div className="space-y-4">
           {sec.fields.map((f) =>
-            f.image ? (
+            f.link ? (
+              <LinkField
+                key={f.key}
+                label={f.label}
+                value={draft[f.key] ?? ""}
+                onChange={(v) => onChange(f.key, v)}
+                variant={f.link}
+              />
+            ) : f.image ? (
               <ImagePickerField
                 key={f.key}
                 label={f.label}
                 value={draft[f.key] ?? ""}
                 onChange={(v) => onChange(f.key, v)}
+                defaultFolder={f.defaultFolder}
               />
             ) : (
               <Field
@@ -98,6 +112,41 @@ export function ContentEditor({
           />
         </div>
       </div>
+    </div>
+  );
+}
+
+function LinkField({
+  label,
+  value,
+  onChange,
+  variant,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  variant: "dentist" | "patient";
+}) {
+  const options =
+    variant === "dentist" ? dentistLinkOptions : patientLinkOptions;
+
+  return (
+    <div>
+      <label className="block text-sm font-medium text-foreground mb-1">
+        {label}
+      </label>
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full rounded-xl border border-border bg-surface px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
+      >
+        <option value="">— Välj sektion —</option>
+        {options.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label} ({o.value})
+          </option>
+        ))}
+      </select>
     </div>
   );
 }

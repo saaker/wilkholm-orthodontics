@@ -41,7 +41,42 @@ export interface SectionField {
   multiline?: boolean;
   large?: boolean;
   image?: boolean;
+  defaultFolder?: string;
+  link?: "dentist" | "patient";
 }
+
+export interface LinkOption {
+  value: string;
+  label: string;
+}
+
+export const dentistLinkOptions: LinkOption[] = [
+  { value: "#services", label: "Tjänster" },
+  { value: "#about", label: "Om mig" },
+  { value: "#advantages", label: "Fördelar" },
+  { value: "#news", label: "Nyheter" },
+  { value: "#top", label: "Till toppen" },
+  { value: "/for-patienter", label: "Patientsidan" },
+  { value: "/for-patienter#aligners", label: "Patientsidan — Aligners" },
+  { value: "/for-patienter#process", label: "Patientsidan — Process" },
+  { value: "/for-patienter#locations", label: "Patientsidan — Kliniker" },
+  { value: "/for-patienter#faq", label: "Patientsidan — FAQ" },
+];
+
+export const patientLinkOptions: LinkOption[] = [
+  { value: "#aligners", label: "Aligners" },
+  { value: "#myths", label: "Myter & sanningar" },
+  { value: "#process", label: "Process" },
+  { value: "#dm", label: "Dental Monitoring" },
+  { value: "#before-after", label: "Före & efter" },
+  { value: "#locations", label: "Kliniker" },
+  { value: "#faq", label: "FAQ" },
+  { value: "#top", label: "Till toppen" },
+  { value: "/", label: "Tandläkarsidan" },
+  { value: "/#services", label: "Tandläkarsidan — Tjänster" },
+  { value: "/#about", label: "Tandläkarsidan — Om mig" },
+  { value: "/#advantages", label: "Tandläkarsidan — Fördelar" },
+];
 
 export interface ContentSection {
   id: string;
@@ -58,15 +93,26 @@ export const dentistContentSections: ContentSection[] = [
       { key: "heroTitle1", label: "Titel rad 1" },
       { key: "heroTitle2", label: "Titel rad 2" },
       { key: "heroSubtitle", label: "Undertext", multiline: true },
-      { key: "heroCta", label: "CTA-knapp" },
-      { key: "heroSecondary", label: "Sekundär länk" },
+      { key: "heroCta", label: "Primär knapp — text" },
+      { key: "heroCtaLink", label: "Primär knapp — länk", link: "dentist" },
+      { key: "heroSecondary", label: "Sekundär knapp — text" },
+      {
+        key: "heroSecondaryLink",
+        label: "Sekundär knapp — länk",
+        link: "dentist",
+      },
     ],
   },
   {
     id: "about",
     title: "Om mig",
     fields: [
-      { key: "aboutImage", label: "Bild (URL)", image: true },
+      {
+        key: "aboutImage",
+        label: "Bild (URL)",
+        image: true,
+        defaultFolder: "team",
+      },
       { key: "aboutLabel", label: "Etikett" },
       { key: "aboutTitle1", label: "Titel rad 1" },
       { key: "aboutTitle2", label: "Titel rad 2" },
@@ -121,11 +167,9 @@ export const dentistContentSections: ContentSection[] = [
       { key: "brandName", label: "Varumärkesnamn" },
       { key: "brandTagline", label: "Tagline" },
       { key: "footerDesc", label: "Footer beskrivning", multiline: true },
-      { key: "footerQuickLinks", label: "Snabblänkar-rubrik" },
-      { key: "footerContact", label: "Kontakt-rubrik" },
-      { key: "footerCopyright", label: "Copyright" },
       { key: "linkedinPersonal", label: "LinkedIn (personlig)" },
       { key: "linkedinCompany", label: "LinkedIn (företag)" },
+      { key: "footerCopyright", label: "Copyright" },
     ],
   },
 ];
@@ -139,8 +183,18 @@ export const patientContentSections: ContentSection[] = [
       { key: "patientHeroTitle1", label: "Titel rad 1" },
       { key: "patientHeroTitle2", label: "Titel rad 2" },
       { key: "patientHeroSubtitle", label: "Undertext", multiline: true },
-      { key: "patientHeroCta", label: "CTA-knapp" },
-      { key: "patientHeroSecondary", label: "Sekundär länk" },
+      { key: "patientHeroCta", label: "Primär knapp — text" },
+      {
+        key: "patientHeroCtaLink",
+        label: "Primär knapp — länk",
+        link: "patient",
+      },
+      { key: "patientHeroSecondary", label: "Sekundär knapp — text" },
+      {
+        key: "patientHeroSecondaryLink",
+        label: "Sekundär knapp — länk",
+        link: "patient",
+      },
     ],
   },
   {
@@ -249,9 +303,14 @@ export const patientSidebar: SidebarItem[] = [
   { type: "cards", sectionKey: "myths", title: "Myter (kort)" },
   { type: "content", sectionId: "process-header", title: "Process (rubrik)" },
   { type: "cards", sectionKey: "process", title: "Process (steg)" },
-  { type: "content", sectionId: "dm-header", title: "DM (rubrik)" },
-  { type: "cards", sectionKey: "dm", title: "DM (kort)" },
-  { type: "content", sectionId: "beforeAfter", title: "Före & Efter" },
+  {
+    type: "content",
+    sectionId: "dm-header",
+    title: "Dental Monitoring (rubrik)",
+  },
+  { type: "cards", sectionKey: "dm", title: "Dental Monitoring (kort)" },
+  { type: "content", sectionId: "beforeAfter", title: "Före & Efter (rubrik)" },
+  { type: "cards", sectionKey: "beforeAfter", title: "Före & Efter (kort)" },
   { type: "locations", title: "Kliniker" },
   { type: "content", sectionId: "faq-header", title: "FAQ (rubrik)" },
   { type: "cards", sectionKey: "faq", title: "FAQ (kort)" },

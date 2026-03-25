@@ -4,30 +4,19 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import basePath from "@/lib/basePath";
 import { useI18n } from "../I18nProvider";
+import { useSections } from "../SectionsProvider";
 import { useAnimateIn } from "../hooks/useAnimateIn";
-
-const cases = [
-  { id: "1", before: "Före1.jpg", after: "Efter1.jpg" },
-  { id: "2", before: "Före2.jpg", after: "Efter2.jpg" },
-  { id: "2a", before: "Före2a.jpg", after: "Efter2a.jpg" },
-  { id: "4", before: "Före4.jpg", after: "Efter4.jpg" },
-  { id: "4a", before: "Före4a.jpg", after: "Efter4a.jpg" },
-  { id: "5", before: "Före5.jpg", after: "Efter5.jpg" },
-  { id: "6", before: "Före6.jpg", after: "Efter6.jpg" },
-  { id: "7", before: "Före7.jpg", after: "Efter7.jpg" },
-  { id: "8", before: "Före8.jpg", after: "Efter8.jpg" },
-  { id: "10", before: "Före10.jpg", after: "Efter10.jpg" },
-  { id: "11", before: "Före11.jpg", after: "Efter11.jpg" },
-  { id: "12", before: "Före12.jpg", after: "Efter12.jpg" },
-];
+import type { BeforeAfterItem } from "@/lib/sectionsDefaults";
 
 const INITIAL_COUNT = 6;
 
 /* ── Fullscreen Lightbox Carousel ── */
 function Lightbox({
+  cases,
   startIndex,
   onClose,
 }: {
+  cases: BeforeAfterItem[];
   startIndex: number;
   onClose: () => void;
 }) {
@@ -139,7 +128,7 @@ function Lightbox({
         <div className="relative flex flex-col items-center md:w-1/2">
           <div className="w-full aspect-[3/2] relative overflow-hidden rounded-lg">
             <Image
-              src={`${basePath}/images/before-after/${c.before}`}
+              src={`${basePath}${c.before}`}
               alt={`${t("beforeAfterBefore")} – Patient ${c.id}`}
               fill
               className="object-cover"
@@ -152,7 +141,7 @@ function Lightbox({
         <div className="relative flex flex-col items-center md:w-1/2">
           <div className="w-full aspect-[3/2] relative overflow-hidden rounded-lg">
             <Image
-              src={`${basePath}/images/before-after/${c.after}`}
+              src={`${basePath}${c.after}`}
               alt={`${t("beforeAfterAfter")} – Patient ${c.id}`}
               fill
               className="object-cover"
@@ -175,10 +164,12 @@ function Lightbox({
 /* ── Main Section ── */
 export default function BeforeAfter() {
   const { t } = useI18n();
+  const { sections } = useSections();
   const { ref, visible } = useAnimateIn();
   const [showAll, setShowAll] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
+  const cases = sections.beforeAfter;
   const visibleCases = showAll ? cases : cases.slice(0, INITIAL_COUNT);
 
   return (
@@ -217,7 +208,7 @@ export default function BeforeAfter() {
                     <div className="relative">
                       <div className="aspect-square overflow-hidden">
                         <Image
-                          src={`${basePath}/images/before-after/${c.before}`}
+                          src={`${basePath}${c.before}`}
                           alt={`${t("beforeAfterBefore")} – Patient ${c.id}`}
                           width={600}
                           height={600}
@@ -232,7 +223,7 @@ export default function BeforeAfter() {
                     <div className="relative">
                       <div className="aspect-square overflow-hidden">
                         <Image
-                          src={`${basePath}/images/before-after/${c.after}`}
+                          src={`${basePath}${c.after}`}
                           alt={`${t("beforeAfterAfter")} – Patient ${c.id}`}
                           width={600}
                           height={600}
@@ -268,6 +259,7 @@ export default function BeforeAfter() {
 
       {lightboxIndex !== null && (
         <Lightbox
+          cases={cases}
           startIndex={lightboxIndex}
           onClose={() => setLightboxIndex(null)}
         />

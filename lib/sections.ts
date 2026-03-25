@@ -25,7 +25,9 @@ const DATA_PATH = path.join(process.cwd(), "data", "sections.json");
 export async function getSections(): Promise<SectionsData> {
   try {
     const data = await readFile(DATA_PATH, "utf-8");
-    return JSON.parse(data);
+    const saved = JSON.parse(data) as Partial<SectionsData>;
+    // Merge with defaults so newly added keys are always present
+    return { ...DEFAULT_SECTIONS, ...saved };
   } catch {
     return DEFAULT_SECTIONS;
   }

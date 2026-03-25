@@ -11,9 +11,9 @@ interface HeroProps {
   title2Key?: TranslationKey;
   subtitleKey?: TranslationKey;
   ctaKey?: TranslationKey;
-  ctaHref?: string;
+  ctaLinkKey?: TranslationKey;
   secondaryKey?: TranslationKey;
-  secondaryHref?: string;
+  secondaryLinkKey?: TranslationKey;
 }
 
 export default function Hero({
@@ -22,12 +22,21 @@ export default function Hero({
   title2Key = "heroTitle2",
   subtitleKey = "heroSubtitle",
   ctaKey = "heroCta",
-  ctaHref = "#services",
+  ctaLinkKey = "heroCtaLink",
   secondaryKey = "heroSecondary",
-  secondaryHref = `${basePath}/for-patienter`,
+  secondaryLinkKey = "heroSecondaryLink",
 }: HeroProps) {
   const { t } = useI18n();
   const { ref, visible } = useAnimateIn(0.05);
+
+  const rawCtaLink = t(ctaLinkKey);
+  const rawSecondaryLink = t(secondaryLinkKey);
+  const ctaHref = rawCtaLink.startsWith("/")
+    ? `${basePath}${rawCtaLink}`
+    : rawCtaLink;
+  const secondaryHref = rawSecondaryLink.startsWith("/")
+    ? `${basePath}${rawSecondaryLink}`
+    : rawSecondaryLink;
 
   return (
     <section

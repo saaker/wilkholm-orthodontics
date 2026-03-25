@@ -23,9 +23,9 @@ export default async function PatientPage() {
           title2Key="patientHeroTitle2"
           subtitleKey="patientHeroSubtitle"
           ctaKey="patientHeroCta"
-          ctaHref="#locations"
+          ctaLinkKey="patientHeroCtaLink"
           secondaryKey="patientHeroSecondary"
-          secondaryHref="#aligners"
+          secondaryLinkKey="patientHeroSecondaryLink"
         />
         <Aligners />
         <MythsTruths />

@@ -129,11 +129,75 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
                   }}
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${activeIdx === i ? "bg-primary/10 text-primary font-medium" : "text-muted-dark hover:bg-muted hover:text-foreground"}`}
                 >
-                  {item.type === "cards"
-                    ? `📋 ${item.title}`
-                    : item.type === "locations"
-                      ? `📍 ${item.title}`
-                      : item.title}
+                  {item.type === "cards" ? (
+                    <>
+                      {item.title}{" "}
+                      <svg
+                        className="inline w-3.5 h-3.5 ml-1 -mt-0.5 opacity-50"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <rect
+                          x="3"
+                          y="3"
+                          width="7"
+                          height="7"
+                          rx="1"
+                          strokeWidth={2}
+                        />
+                        <rect
+                          x="14"
+                          y="3"
+                          width="7"
+                          height="7"
+                          rx="1"
+                          strokeWidth={2}
+                        />
+                        <rect
+                          x="3"
+                          y="14"
+                          width="7"
+                          height="7"
+                          rx="1"
+                          strokeWidth={2}
+                        />
+                        <rect
+                          x="14"
+                          y="14"
+                          width="7"
+                          height="7"
+                          rx="1"
+                          strokeWidth={2}
+                        />
+                      </svg>
+                    </>
+                  ) : item.type === "locations" ? (
+                    <>
+                      {item.title}{" "}
+                      <svg
+                        className="inline w-3.5 h-3.5 ml-1 -mt-0.5 opacity-50"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                      </svg>
+                    </>
+                  ) : (
+                    item.title
+                  )}
                 </button>
               ))}
             </div>
@@ -157,9 +221,22 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
                 />
               ) : activeItem?.type === "cards" ? (
                 <div className="bg-surface rounded-2xl shadow-sm border border-border p-6">
-                  <h2 className="text-lg font-semibold font-sans mb-4">
-                    {activeItem.title}
-                  </h2>
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-lg font-semibold font-sans">
+                      {activeItem.title}
+                    </h2>
+                    <div className="flex items-center gap-1 bg-muted rounded-lg p-0.5">
+                      {(["sv", "en"] as const).map((l) => (
+                        <button
+                          key={l}
+                          onClick={() => content.setContentLocale(l)}
+                          className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${content.contentLocale === l ? "bg-surface text-foreground shadow-sm" : "text-muted-dark"}`}
+                        >
+                          {l === "sv" ? "Svenska" : "English"}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                   <fieldset
                     disabled={auth.readOnly}
                     className={auth.readOnly ? "opacity-60" : ""}
@@ -171,7 +248,6 @@ export default function AdminPanel({ initialLocations = [] }: AdminPanelProps) {
                       editingCard={content.editingCard}
                       setEditingCard={content.setEditingCard}
                       contentLocale={content.contentLocale}
-                      setContentLocale={content.setContentLocale}
                       saving={content.saving}
                       readOnly={auth.readOnly}
                       onSave={content.handleSectionsSave}
