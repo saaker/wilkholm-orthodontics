@@ -1,12 +1,12 @@
 import Header from "../components/Header";
 import Hero from "../components/Hero";
-import Aligners from "../components/Aligners";
-import MythsTruths from "../components/MythsTruths";
-import Process from "../components/Process";
-import DentalMonitoring from "../components/DentalMonitoring";
-import BeforeAfter from "../components/BeforeAfter";
-import Locations from "../components/Locations";
-import FAQ from "../components/FAQ";
+import Aligners from "../components/for-patients/Aligners";
+import MythsTruths from "../components/for-patients/MythsTruths";
+import Process from "../components/for-patients/Process";
+import DentalMonitoring from "../components/for-patients/DentalMonitoring";
+import BeforeAfter from "../components/for-patients/BeforeAfter";
+import Locations from "../components/for-patients/Locations";
+import FAQ from "../components/for-patients/FAQ";
 import Footer from "../components/Footer";
 import { getLocations } from "@/lib/locations";
 

@@ -1,12 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { useI18n } from "./I18nProvider";
-import { useAnimateIn } from "./useAnimateIn";
+import { useI18n } from "../I18nProvider";
+import { useAnimateIn } from "../hooks/useAnimateIn";
+import basePath from "@/lib/basePath";
 
 export default function About() {
   const { t } = useI18n();
   const { ref, visible } = useAnimateIn();
+
+  const bioText = t("aboutBio");
+  const paragraphs = bioText.split("\n").filter((p) => p.trim());
 
   return (
     <section id="about" className="py-24 bg-surface">
@@ -18,8 +22,8 @@ export default function About() {
           >
             <div className="aspect-4/5 rounded-2xl overflow-hidden shadow-2xl shadow-primary/10">
               <Image
-                src="https://swedishdental.com/wp-content/uploads/2025/10/image0-1.jpeg"
-                alt="André Wikholm"
+                src={`${t("aboutImage").startsWith("http") ? "" : basePath}${t("aboutImage")}`}
+                alt={t("aboutLabel")}
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -42,17 +46,17 @@ export default function About() {
               <span className="text-primary">{t("aboutTitle2")}</span>
             </h2>
             <div className="space-y-4 text-muted-dark leading-relaxed">
-              <p>{t("aboutParagraph1")}</p>
-              <p>{t("aboutParagraph2")}</p>
-              <p>{t("aboutParagraph3")}</p>
+              {paragraphs.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
             </div>
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-6 mt-10 pt-10 border-t border-border">
               {[
-                { value: "20+", label: t("statYears") },
-                { value: "2000+", label: t("statPatients") },
-                { value: "Diamond", label: t("statProvider") },
+                { value: t("bragValue1"), label: t("bragTitle1") },
+                { value: t("bragValue2"), label: t("bragTitle2") },
+                { value: t("bragValue3"), label: t("bragTitle3") },
               ].map((stat) => (
                 <div key={stat.label}>
                   <div className="text-2xl font-serif font-semibold text-primary">

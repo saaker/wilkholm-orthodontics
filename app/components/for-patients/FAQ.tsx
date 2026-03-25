@@ -1,21 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { useI18n } from "./I18nProvider";
-import { useAnimateIn } from "./useAnimateIn";
-import type { TranslationKey } from "@/lib/i18n";
-
-const faqItems: { qKey: TranslationKey; aKey: TranslationKey }[] = [
-  { qKey: "faq1Q", aKey: "faq1A" },
-  { qKey: "faq2Q", aKey: "faq2A" },
-  { qKey: "faq3Q", aKey: "faq3A" },
-  { qKey: "faq4Q", aKey: "faq4A" },
-  { qKey: "faq5Q", aKey: "faq5A" },
-  { qKey: "faq6Q", aKey: "faq6A" },
-];
+import { useI18n } from "../I18nProvider";
+import { useSections } from "../SectionsProvider";
+import { useAnimateIn } from "../hooks/useAnimateIn";
 
 export default function FAQ() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
+  const { sections } = useSections();
   const { ref, visible } = useAnimateIn();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -40,11 +32,12 @@ export default function FAQ() {
         <div
           className={`space-y-3 animate-fade-up delay-1 ${visible ? "visible" : ""}`}
         >
-          {faqItems.map((item, i) => {
+          {sections.faq.map((item, i) => {
             const isOpen = openIndex === i;
+            const text = item[locale];
             return (
               <div
-                key={i}
+                key={item.id}
                 className="bg-surface rounded-xl border border-border/50 shadow-sm overflow-hidden"
               >
                 <button
@@ -52,7 +45,7 @@ export default function FAQ() {
                   className="w-full flex items-center justify-between p-5 text-left gap-4"
                 >
                   <span className="text-sm font-semibold text-foreground leading-snug">
-                    {t(item.qKey)}
+                    {text.question}
                   </span>
                   <svg
                     className={`w-5 h-5 shrink-0 text-primary transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
@@ -73,7 +66,7 @@ export default function FAQ() {
                 >
                   <div className="overflow-hidden">
                     <div className="px-5 pb-5 text-sm text-muted-dark leading-relaxed border-t border-border/50 pt-4">
-                      {t(item.aKey)}
+                      {text.answer}
                     </div>
                   </div>
                 </div>

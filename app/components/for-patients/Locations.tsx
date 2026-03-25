@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import dynamic from "next/dynamic";
-import { useI18n } from "./I18nProvider";
+import { useI18n } from "../I18nProvider";
 
 interface LocationData {
   id: string;

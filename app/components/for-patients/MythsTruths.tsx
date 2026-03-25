@@ -1,23 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { useI18n } from "./I18nProvider";
-import { useAnimateIn } from "./useAnimateIn";
-import type { TranslationKey } from "@/lib/i18n";
-
-const mythItems: { qKey: TranslationKey; aKey: TranslationKey }[] = [
-  { qKey: "myth1Q", aKey: "myth1A" },
-  { qKey: "myth2Q", aKey: "myth2A" },
-  { qKey: "myth3Q", aKey: "myth3A" },
-  { qKey: "myth4Q", aKey: "myth4A" },
-  { qKey: "myth5Q", aKey: "myth5A" },
-  { qKey: "myth6Q", aKey: "myth6A" },
-  { qKey: "myth7Q", aKey: "myth7A" },
-  { qKey: "myth8Q", aKey: "myth8A" },
-];
+import { useI18n } from "../I18nProvider";
+import { useSections } from "../SectionsProvider";
+import { useAnimateIn } from "../hooks/useAnimateIn";
 
 export default function MythsTruths() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
+  const { sections } = useSections();
   const { ref, visible } = useAnimateIn();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -38,15 +28,16 @@ export default function MythsTruths() {
           <p className="text-muted-dark leading-relaxed">{t("mythsIntro")}</p>
         </div>
 
-        {/* Myths accordion */}
+        {/* Accordion */}
         <div
           className={`space-y-3 animate-fade-up delay-1 ${visible ? "visible" : ""}`}
         >
-          {mythItems.map((item, i) => {
+          {sections.myths.map((item, i) => {
             const isOpen = openIndex === i;
+            const text = item[locale];
             return (
               <div
-                key={i}
+                key={item.id}
                 className="bg-surface rounded-xl border border-border shadow-sm overflow-hidden"
               >
                 <button
@@ -54,11 +45,11 @@ export default function MythsTruths() {
                   className="w-full flex items-center justify-between p-5 text-left gap-4"
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <span className="shrink-0 inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide bg-myth-bg text-myth-text">
+                    <span className="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide bg-myth-bg text-myth-text shrink-0">
                       {t("mythsMyth")}
                     </span>
                     <span className="text-sm font-semibold text-foreground leading-snug">
-                      {t(item.qKey)}
+                      {text.myth}
                     </span>
                   </div>
                   <svg
@@ -79,15 +70,13 @@ export default function MythsTruths() {
                   className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
                 >
                   <div className="overflow-hidden">
-                    <div className="px-5 pb-5 border-t border-border/50 pt-4">
-                      <div className="flex items-start gap-3">
-                        <span className="shrink-0 inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide mt-0.5 bg-truth-bg text-truth-text">
-                          {t("mythsTruth")}
-                        </span>
-                        <p className="text-sm text-muted-dark leading-relaxed">
-                          {t(item.aKey)}
-                        </p>
-                      </div>
+                    <div className="px-5 pb-5 flex gap-3 items-start border-t border-border pt-4">
+                      <span className="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide bg-truth-bg text-truth-text shrink-0 mt-0.5">
+                        {t("mythsTruth")}
+                      </span>
+                      <p className="text-sm text-muted-dark leading-relaxed">
+                        {text.truth}
+                      </p>
                     </div>
                   </div>
                 </div>

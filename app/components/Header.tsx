@@ -3,10 +3,10 @@
 import Image from "next/image";
 import { useState } from "react";
 import { useI18n } from "./I18nProvider";
-import { useTheme } from "./useTheme";
+import { useTheme } from "./hooks/useTheme";
 import basePath from "@/lib/basePath";
 
-import logo from "../../public/logo.jpg";
+import logo from "../../public/images/logos/logo.jpg";
 
 export default function Header({
   variant = "b2b",

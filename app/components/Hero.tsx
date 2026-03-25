@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "./I18nProvider";
-import { useAnimateIn } from "./useAnimateIn";
+import { useAnimateIn } from "./hooks/useAnimateIn";
 import basePath from "@/lib/basePath";
 import type { TranslationKey } from "@/lib/i18n";
 

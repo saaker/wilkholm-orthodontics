@@ -10,6 +10,8 @@ import {
 } from "react";
 import { translations, type Locale, type TranslationKey } from "@/lib/i18n";
 
+type Overrides = Record<string, Record<string, string>>;
+
 interface I18nContextValue {
   locale: Locale;
   t: (key: TranslationKey) => string;
@@ -26,6 +28,7 @@ export function I18nProvider({
   defaultLocale?: Locale;
 }) {
   const [locale, setLocaleState] = useState<Locale>(defaultLocale);
+  const [overrides, setOverrides] = useState<Overrides>({});
 
   // Restore saved locale after mount
   useEffect(() => {
@@ -36,6 +39,16 @@ export function I18nProvider({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Load content overrides
+  useEffect(() => {
+    fetch("/api/content")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (data) setOverrides(data);
+      })
+      .catch(() => {});
+  }, []);
+
   const setLocale = useCallback((newLocale: Locale) => {
     setLocaleState(newLocale);
     localStorage.setItem("locale", newLocale);
@@ -43,8 +56,12 @@ export function I18nProvider({
   }, []);
 
   const t = useCallback(
-    (key: TranslationKey) => translations[locale][key],
-    [locale],
+    (key: TranslationKey) => {
+      const override = overrides[locale]?.[key];
+      if (override !== undefined && override !== "") return override;
+      return translations[locale][key];
+    },
+    [locale, overrides],
   );
 
   return (

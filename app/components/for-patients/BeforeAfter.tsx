@@ -3,8 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import basePath from "@/lib/basePath";
-import { useI18n } from "./I18nProvider";
-import { useAnimateIn } from "./useAnimateIn";
+import { useI18n } from "../I18nProvider";
+import { useAnimateIn } from "../hooks/useAnimateIn";
 
 const cases = [
   { id: "1", before: "Före1.jpg", after: "Efter1.jpg" },

@@ -33,6 +33,9 @@ export const translations = {
     aboutLabel: "André Wikholm",
     aboutTitle1: "Specialisttandläkare med ett öga för",
     aboutTitle2: "naturliga resultat",
+    aboutImage: "/images/team/AndreHeadshot.jpeg",
+    aboutBio:
+      "Legitimerad tandläkare sedan 2003 och specialisttandläkare inom tandreglering sedan 2014. Arbetar idag uteslutande med genomskinliga aligners och har gjort det sedan 2017.\nMed Invisalign Diamond Provider-status och mångårig erfarenhet har jag startat ett stort antal fall och byggt upp bred kompetens inom alignerbehandling för både ungdomar och vuxna. Min filosofi är enkel: varje patient förtjänar en individuell behandlingsplan.\nJag är medlem i Svenska Ortodontiföreningen, Sveriges Tandläkarförbund, Swedish Aligner Society och European Aligner Society. Utanför kliniken hittar du mig med familjen eller ute i naturen.",
     aboutPhotoPlaceholder: "Foto kommer snart",
     aboutParagraph1:
       "Legitimerad tandläkare sedan 2003 och specialisttandläkare inom tandreglering sedan 2014. Arbetar idag uteslutande med genomskinliga aligners och har gjort det sedan 2017.",
@@ -40,6 +43,12 @@ export const translations = {
       "Med Invisalign Diamond Provider-status och mångårig erfarenhet har jag startat ett stort antal fall och byggt upp bred kompetens inom alignerbehandling för både ungdomar och vuxna. Min filosofi är enkel: varje patient förtjänar en individuell behandlingsplan.",
     aboutParagraph3:
       "Jag är medlem i Svenska Ortodontiföreningen, Sveriges Tandläkarförbund, Swedish Aligner Society och European Aligner Society. Utanför kliniken hittar du mig med familjen eller ute i naturen.",
+    bragValue1: "20+",
+    bragTitle1: "Års erfarenhet",
+    bragValue2: "2 000+",
+    bragTitle2: "Nöjda patienter",
+    bragValue3: "Diamond",
+    bragTitle3: "Diamond Provider",
     statYears: "Års erfarenhet",
     statPatients: "Nöjda patienter",
     statProvider: "Diamond Provider",
@@ -331,6 +340,9 @@ export const translations = {
     aboutLabel: "André Wikholm",
     aboutTitle1: "Specialist orthodontist with an eye for",
     aboutTitle2: "natural results",
+    aboutImage: "/images/team/AndreHeadshot.jpeg",
+    aboutBio:
+      "Licensed dentist since 2003 and specialist orthodontist since 2014. Working exclusively with clear aligners since 2017.\nWith Invisalign Diamond Provider status and years of experience, I have started a large number of cases and built extensive expertise in aligner treatment for both teenagers and adults. My philosophy is simple: every patient deserves an individual treatment plan.\nI'm a member of the Swedish Orthodontic Society, the Swedish Dental Association, the Swedish Aligner Society, and the European Aligner Society. Outside the clinic, you'll find me with my family or out in nature.",
     aboutPhotoPlaceholder: "Photo coming soon",
     aboutParagraph1:
       "Licensed dentist since 2003 and specialist orthodontist since 2014. Working exclusively with clear aligners since 2017.",
@@ -338,6 +350,12 @@ export const translations = {
       "With Invisalign Diamond Provider status and years of experience, I have started a large number of cases and built extensive expertise in aligner treatment for both teenagers and adults. My philosophy is simple: every patient deserves an individual treatment plan.",
     aboutParagraph3:
       "I'm a member of the Swedish Orthodontic Society, the Swedish Dental Association, the Swedish Aligner Society, and the European Aligner Society. Outside the clinic, you'll find me with my family or out in nature.",
+    bragValue1: "20+",
+    bragTitle1: "Years of experience",
+    bragValue2: "2,000+",
+    bragTitle2: "Happy patients",
+    bragValue3: "Diamond",
+    bragTitle3: "Diamond Provider",
     statYears: "Years of experience",
     statPatients: "Happy patients",
     statProvider: "Diamond Provider",
