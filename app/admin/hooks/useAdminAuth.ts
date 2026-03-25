@@ -10,7 +10,9 @@ function getSavedSecret() {
 
 export function useAdminAuth() {
   const [secret, setSecret] = useState(getSavedSecret);
-  const [authenticated, setAuthenticated] = useState(() => getSavedSecret() !== "");
+  const [authenticated, setAuthenticated] = useState(
+    () => getSavedSecret() !== "",
+  );
   const [readOnly, setReadOnly] = useState(false);
   const [message, setMessage] = useState<{
     type: "success" | "error";
