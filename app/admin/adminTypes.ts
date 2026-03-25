@@ -246,8 +246,6 @@ export const patientContentSections: ContentSection[] = [
       { key: "beforeAfterTitle1", label: "Titel rad 1" },
       { key: "beforeAfterTitle2", label: "Titel rad 2" },
       { key: "beforeAfterIntro", label: "Intro", multiline: true },
-      { key: "beforeAfterBefore", label: "Före-etikett" },
-      { key: "beforeAfterAfter", label: "Efter-etikett" },
       { key: "beforeAfterDisclaimer", label: "Disclaimer", multiline: true },
     ],
   },

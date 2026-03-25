@@ -104,8 +104,9 @@ function makeCard(sectionKey: keyof SectionsData): Record<string, unknown> {
       return {
         id: `news-${ts}`,
         color: "bg-primary/10 text-primary",
-        sv: { tag: "", date: "", title: "", desc: "" },
-        en: { tag: "", date: "", title: "", desc: "" },
+        image: "",
+        sv: { tag: "", date: "", title: "", desc: "", body: "" },
+        en: { tag: "", date: "", title: "", desc: "", body: "" },
       };
     case "beforeAfter":
       return {
@@ -317,6 +318,19 @@ function CardEditForm({
             value={localData.desc || ""}
             onChange={(v) => update(`${locale}.desc`, v)}
             multiline
+          />
+          <ImagePickerField
+            label="Bild (visas i modal)"
+            value={ns.image || ""}
+            onChange={(v) => update("image", v)}
+            defaultFolder="news"
+          />
+          <Field
+            label="Fulltext (visas i modal)"
+            value={localData.body || ""}
+            onChange={(v) => update(`${locale}.body`, v)}
+            multiline
+            large
           />
         </>
       );

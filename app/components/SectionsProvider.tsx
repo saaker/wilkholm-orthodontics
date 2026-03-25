@@ -7,7 +7,11 @@ import {
   useEffect,
   type ReactNode,
 } from "react";
-import { type SectionsData, DEFAULT_SECTIONS } from "@/lib/sectionsDefaults";
+import {
+  type SectionsData,
+  DEFAULT_SECTIONS,
+  mergeSections,
+} from "@/lib/sectionsDefaults";
 import basePath from "@/lib/basePath";
 
 interface SectionsContextValue {
@@ -25,7 +29,7 @@ export function SectionsProvider({ children }: { children: ReactNode }) {
     fetch(`${basePath}/api/sections`)
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
-        if (data) setSections({ ...DEFAULT_SECTIONS, ...data });
+        if (data) setSections(mergeSections(data));
       })
       .catch(() => {});
   }, []);

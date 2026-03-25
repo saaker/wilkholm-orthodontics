@@ -171,21 +171,35 @@ export function ImagePickerField({
             />
           </div>
         )}
-        <div className="flex-1 space-y-2">
-          <input
-            type="text"
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            placeholder="/images/team/photo.jpeg"
-            className={inputCls}
-          />
-          <button
-            type="button"
-            onClick={openPicker}
-            className="px-3 py-1.5 text-xs font-medium rounded-lg bg-primary-light text-primary hover:bg-primary/20 transition-colors"
-          >
-            Välj från bildbiblioteket
-          </button>
+        <div className="flex-1">
+          <div className="flex items-center gap-2">
+            <input
+              type="text"
+              value={value}
+              onChange={(e) => onChange(e.target.value)}
+              placeholder="/images/news/photo.jpg"
+              className={`${inputCls} flex-1`}
+            />
+            <button
+              type="button"
+              onClick={openPicker}
+              className="w-9 h-9 shrink-0 flex items-center justify-center rounded-lg border border-border bg-muted hover:bg-primary-light hover:text-primary transition-colors text-muted-dark"
+              title="Välj från bildbiblioteket"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-4 h-4"
+              >
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
 

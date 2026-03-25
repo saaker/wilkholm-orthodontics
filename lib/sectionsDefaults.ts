@@ -52,8 +52,9 @@ export interface MythItem {
 export interface NewsItem {
   id: string;
   color: string;
-  sv: { tag: string; date: string; title: string; desc: string };
-  en: { tag: string; date: string; title: string; desc: string };
+  image?: string;
+  sv: { tag: string; date: string; title: string; desc: string; body?: string };
+  en: { tag: string; date: string; title: string; desc: string; body?: string };
 }
 
 export interface BeforeAfterItem {
@@ -72,6 +73,49 @@ export interface SectionsData {
   myths: MythItem[];
   news: NewsItem[];
   beforeAfter: BeforeAfterItem[];
+}
+
+/**
+ * Deep-merge saved sections with defaults so that new fields added to
+ * DEFAULT_SECTIONS (e.g. body on news items) are backfilled into saved items.
+ */
+export function mergeSections(saved: Partial<SectionsData>): SectionsData {
+  const merged = { ...DEFAULT_SECTIONS, ...saved } as SectionsData;
+
+  // For each array key, merge items by id so new default fields carry over
+  for (const key of Object.keys(DEFAULT_SECTIONS) as (keyof SectionsData)[]) {
+    const defaults = DEFAULT_SECTIONS[key];
+    const items = saved[key];
+    if (!Array.isArray(defaults) || !Array.isArray(items)) continue;
+
+    type Item = Record<string, unknown>;
+    const defs = defaults as unknown as Item[];
+    const saved_items = items as unknown as Item[];
+    const defaultMap = new Map(defs.map((d) => [d.id as string, d]));
+    (merged[key] as unknown as Item[]) = saved_items.map((item) => {
+      const def = defaultMap.get(item.id as string);
+      if (!def) return item;
+      const result = { ...def, ...item };
+      for (const loc of ["sv", "en"] as const) {
+        const defLoc = def[loc];
+        const itemLoc = item[loc];
+        if (
+          defLoc &&
+          typeof defLoc === "object" &&
+          itemLoc &&
+          typeof itemLoc === "object"
+        ) {
+          result[loc] = {
+            ...(defLoc as Record<string, unknown>),
+            ...(itemLoc as Record<string, unknown>),
+          };
+        }
+      }
+      return result;
+    });
+  }
+
+  return merged;
 }
 
 export const NEWS_COLORS = [
@@ -609,18 +653,21 @@ export const DEFAULT_SECTIONS: SectionsData = {
     {
       id: "guide",
       color: "bg-primary/10 text-primary",
+      image: "/images/news/clear-aligners-benfits.jpg",
       sv: {
         tag: "GUIDE",
         date: "15 mars 2026",
         title:
           "Aligners vs traditionell tandställning: Vilken behandling passar dig?",
         desc: "En jämförelse av genomskinliga skenor och traditionell tandreglering — material, process, kostnad och resultat.",
+        body: "Aligners och traditionell tandställning är de två vanligaste metoderna för tandreglering idag. Genomskinliga skenor (aligners) är nästan osynliga, avtagbara och kräver färre besök hos tandläkaren. Traditionella metallställningar ger ortodontisten mer direkt kontroll och kan hantera komplexa fall.\n\nKostnaden för de två behandlingarna är i allmänhet jämförbar. Alignerbehandling tar vanligtvis 6–18 månader beroende på fallets komplexitet, medan traditionell tandställning ofta sitter i 18–24 månader.\n\nBåda metoderna ger utmärkta resultat — valet beror på livsstil, fallets komplexitet och personliga preferenser. Boka en kostnadsfri bedömning för att ta reda på vilken metod som passar dig bäst.",
       },
       en: {
         tag: "GUIDE",
         date: "March 15, 2026",
         title: "Aligners vs traditional braces: Which treatment suits you?",
         desc: "A comparison of clear aligners and traditional braces — materials, process, cost, and results.",
+        body: "Aligners and traditional braces are the two most common orthodontic methods today. Clear aligners are nearly invisible, removable, and require fewer dental visits. Traditional metal braces give the orthodontist more direct control and can handle complex cases.\n\nThe cost of both treatments is generally comparable. Aligner treatment typically takes 6–18 months depending on complexity, while traditional braces are often worn for 18–24 months.\n\nBoth methods deliver excellent results — the choice depends on lifestyle, case complexity, and personal preference. Book a free assessment to find out which method suits you best.",
       },
     },
     {
@@ -631,12 +678,14 @@ export const DEFAULT_SECTIONS: SectionsData = {
         date: "1 mars 2026",
         title: "5 tips för att få ut mest av din skenbehandling",
         desc: "Praktiska råd som hjälper dig hålla behandlingen på rätt spår — från rengöring till bärtid och kontroller.",
+        body: "1. Bär dina skenor minst 22 timmar per dag — ta bara ut dem vid måltider och tandborstning.\n\n2. Rengör skenorna dagligen med ljummet vatten och en mjuk tandborste. Undvik varmt vatten som kan deformera plasten.\n\n3. Byt till nästa skena enligt schemat — hoppa inte över steg även om det känns bra.\n\n4. Använd Dental Monitoring-appen för att skicka in regelbundna bilder så att din ortodontist kan följa framstegen på distans.\n\n5. Kom ihåg att använda retainer efter avslutad behandling för att behålla resultatet.",
       },
       en: {
         tag: "TIPS",
         date: "March 1, 2026",
         title: "5 tips to get the most out of your aligner treatment",
         desc: "Practical advice to keep your treatment on track — from cleaning to wear time and check-ups.",
+        body: "1. Wear your aligners at least 22 hours per day — only remove them for meals and brushing.\n\n2. Clean your aligners daily with lukewarm water and a soft toothbrush. Avoid hot water which can warp the plastic.\n\n3. Switch to the next aligner on schedule — don't skip steps even if things feel fine.\n\n4. Use the Dental Monitoring app to send regular photos so your orthodontist can track progress remotely.\n\n5. Remember to wear your retainer after treatment is complete to maintain the results.",
       },
     },
     {
@@ -647,12 +696,14 @@ export const DEFAULT_SECTIONS: SectionsData = {
         date: "14 februari 2026",
         title: "Varför raka tänder handlar om mer än estetik",
         desc: "Felställda tänder kan påverka tuggfunktion, munhygien och till och med huvudvärk. Läs om hälsofördelarna med ortodonti.",
+        body: "Många tänker på tandreglering som en kosmetisk behandling, men fördelarna sträcker sig långt bortom ett vackert leende.\n\nFelställda tänder kan göra det svårare att borsta och använda tandtråd ordentligt, vilket ökar risken för karies och tandköttsproblem. Ett ojämnt bett kan dessutom belasta käkleden och leda till huvudvärk, nacksmärtor och till och med sömnproblem.\n\nGenom att rätta till tandställningen förbättras tuggfunktionen, munhygienen blir enklare att upprätthålla och belastningen på käkleden minskar. Det är en investering i din hälsa — inte bara ditt utseende.",
       },
       en: {
         tag: "ORAL HEALTH",
         date: "February 14, 2026",
         title: "Why straight teeth are about more than aesthetics",
         desc: "Misaligned teeth can affect chewing, oral hygiene, and even headaches. Read about the health benefits of orthodontics.",
+        body: "Many think of orthodontics as a cosmetic treatment, but the benefits extend far beyond a beautiful smile.\n\nMisaligned teeth can make it harder to brush and floss properly, increasing the risk of cavities and gum disease. An uneven bite can also strain the jaw joint, leading to headaches, neck pain, and even sleep problems.\n\nBy correcting tooth alignment, chewing function improves, oral hygiene becomes easier to maintain, and strain on the jaw joint is reduced. It's an investment in your health — not just your appearance.",
       },
     },
   ],

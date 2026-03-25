@@ -1,7 +1,7 @@
 /* Server-only file I/O for sections data */
 import { readFile, writeFile } from "fs/promises";
 import path from "path";
-import { DEFAULT_SECTIONS } from "./sectionsDefaults";
+import { DEFAULT_SECTIONS, mergeSections } from "./sectionsDefaults";
 
 // Re-export types for convenience
 export type {
@@ -26,8 +26,7 @@ export async function getSections(): Promise<SectionsData> {
   try {
     const data = await readFile(DATA_PATH, "utf-8");
     const saved = JSON.parse(data) as Partial<SectionsData>;
-    // Merge with defaults so newly added keys are always present
-    return { ...DEFAULT_SECTIONS, ...saved };
+    return mergeSections(saved);
   } catch {
     return DEFAULT_SECTIONS;
   }
